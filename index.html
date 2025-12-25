@@ -1,0 +1,3175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Недвижимость Дубая</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--light);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #16213e 100%);
+            color: white;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--gold);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover, nav a.active {
+            color: var(--gold);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        linear-gradient(45deg, #004466, #0088cc);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 1rem;
+            margin-top: 70px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+        
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: var(--gold);
+            margin: 10px auto;
+        }
+        
+        .attractions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .attraction-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .attraction-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .attraction-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        
+        .attraction-content {
+            padding: 1.5rem;
+        }
+        
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .property-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .property-image {
+            height: 250px;
+            position: relative;
+        }
+        
+        .carousel-container {
+            height: 100%;
+            position: relative;
+        }
+        
+        .carousel-slide {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+        
+        .carousel-btn.prev {
+            left: 10px;
+        }
+        
+        .carousel-btn.next {
+            right: 10px;
+        }
+        
+        .carousel-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            z-index: 2;
+        }
+        
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+        }
+        
+        .carousel-dot.active {
+            background: white;
+        }
+        
+        .property-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 2;
+        }
+        
+        .property-content {
+            padding: 1.5rem;
+        }
+        
+        .property-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .property-developer {
+            color: var(--gold);
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+        
+        .property-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .property-price {
+            color: var(--gold);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .property-actions {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .filters {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .filter-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filter-group label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .filter-group select, .filter-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .developers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .developer-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .developer-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .developer-logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .developer-projects {
+            color: var(--gold);
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            align-items: start;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-image {
+            height: 400px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f0f0f0;
+            position: relative;
+        }
+        
+        .about-text {
+            line-height: 1.8;
+        }
+        
+        .about-text h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            background: var(--gold);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn:hover {
+            background: #b8941f;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+        
+        .btn-outline:hover {
+            background: var(--gold);
+            color: white;
+        }
+        
+        .add-btn {
+            display: block;
+            margin: 2rem auto;
+            max-width: 200px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 2rem auto;
+            max-width: 800px;
+            width: 90%;
+            border-radius: 10px;
+            position: relative;
+            padding: 2rem;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .drag-drop-area {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafafa;
+            position: relative;
+        }
+        
+        .drag-drop-area.dragover {
+            border-color: var(--gold);
+            background: #fffaf0;
+        }
+        
+        .drag-drop-area i {
+            font-size: 2rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+        
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .preview-item {
+            position: relative;
+            height: 120px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+        
+        .remove-image:hover {
+            background: #ff0000;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .detail-modal-content {
+            max-width: 900px;
+            padding: 0;
+            background: transparent;
+        }
+        
+        .detail-carousel {
+            height: 400px;
+            position: relative;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+        }
+        
+        .detail-carousel-slide {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .detail-carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .detail-carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+        
+        .detail-carousel-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        
+        .detail-carousel-btn.prev {
+            left: 20px;
+        }
+        
+        .detail-carousel-btn.next {
+            right: 20px;
+        }
+        
+        .detail-carousel-dots {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .detail-carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .detail-carousel-dot.active {
+            background: white;
+        }
+        
+        .detail-content {
+            padding: 2rem;
+            background: white;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .detail-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .detail-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+        
+        .detail-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin: 1rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 3rem;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        
+        .has-video {
+            position: relative;
+        }
+        
+        .has-video::after {
+            content: '▶';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            z-index: 1;
+        }
+        
+        .edit-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+        
+        .attraction-actions, .developer-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+        
+        .image-count {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            z-index: 2;
+        }
+        
+        .attraction-view-btn {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 2;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .attraction-view-btn:hover {
+            background: rgba(0,0,0,0.9);
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--dark);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .property-actions {
+                flex-wrap: wrap;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 1rem;
+                margin: 1rem auto;
+            }
+        }
+        
+        .no-image {
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 1.2rem;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+        
+        .attraction-detail-modal {
+            max-width: 800px;
+        }
+        
+        .attraction-detail-img {
+            height: 300px;
+            border-radius: 10px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .image-fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 3000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .image-fullscreen.active {
+            display: flex;
+        }
+        
+        .fullscreen-img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+        
+        .close-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .zoom-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .image-upload-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .uploaded-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .uploaded-image {
+            position: relative;
+            height: 100px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .uploaded-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .delete-uploaded-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(255,0,0,0.8);
+            color: white;
+            border: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-drag-drop-area {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafafa;
+            margin-top: 0.5rem;
+            position: relative;
+        }
+        
+        .video-drag-drop-area.dragover {
+            border-color: var(--gold);
+            background: #fffaf0;
+        }
+        
+        .video-preview {
+            margin-top: 1rem;
+            width: 100%;
+            max-height: 300px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .video-preview video {
+            width: 100%;
+            height: auto;
+        }
+        
+        .drag-drop-text {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+        
+        .video-or-text {
+            text-align: center;
+            margin: 1rem 0;
+            color: #666;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .save-success {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        .save-success.show {
+            display: block;
+            animation: fadeInOut 2s ease;
+        }
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .error-message {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .hidden-video-input {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">DUBAI PROPERTIES</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#home" class="active">Главная</a></li>
+                    <li><a href="#attractions">Дубай</a></li>
+                    <li><a href="#properties">Объекты</a></li>
+                    <li><a href="#developers">Застройщики</a></li>
+                    <li><a href="#about">Обо мне</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Элитная недвижимость в Дубае</h1>
+            <p>Эксклюзивные предложения от ведущих застройщиков ОАЭ. Подбор, консультация и сопровождение сделок.</p>
+        </div>
+    </section>
+
+    <section id="attractions">
+        <h2 class="section-title">Дубай - город будущего</h2>
+        <button class="btn add-btn" onclick="openEditModal('attraction', 'new')">
+            <i class="fas fa-plus"></i> Добавить достопримечательность
+        </button>
+        <div class="attractions-grid" id="attractionsContainer">
+            <!-- Attractions will be rendered here -->
+        </div>
+    </section>
+
+    <section id="properties" style="background: #f8f9fa;">
+        <h2 class="section-title">Объекты недвижимости</h2>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <div>
+                    <label for="developerFilter">Застройщик</label>
+                    <select id="developerFilter" onchange="applyFilters()">
+                        <option value="all">Все застройщики</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="priceFilter">Макс. цена ($)</label>
+                    <input type="number" id="priceFilter" placeholder="Любая" oninput="applyFilters()">
+                </div>
+                <div>
+                    <label for="areaFilter">Мин. площадь (м²)</label>
+                    <input type="number" id="areaFilter" placeholder="Любая" oninput="applyFilters()">
+                </div>
+            </div>
+        </div>
+
+        <button class="btn add-btn" onclick="openEditModal('property', 'new')">
+            <i class="fas fa-plus"></i> Добавить объект
+        </button>
+
+        <div class="properties-grid" id="propertiesContainer">
+            <!-- Properties will be rendered here -->
+        </div>
+    </section>
+
+    <section id="developers">
+        <h2 class="section-title">Застройщики</h2>
+        <button class="btn add-btn" onclick="openEditModal('developer', 'new')">
+            <i class="fas fa-plus"></i> Добавить застройщика
+        </button>
+        <div class="developers-grid" id="developersContainer">
+            <!-- Developers will be rendered here -->
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">Обо мне</h2>
+        <div class="about-content">
+            <div class="about-image" id="aboutImage"></div>
+            <div class="about-text" id="aboutText">
+                <!-- About text will be rendered here -->
+            </div>
+        </div>
+        <button class="btn add-btn" onclick="openEditModal('about')">
+            <i class="fas fa-edit"></i> Редактировать
+        </button>
+    </section>
+
+    <footer>
+        <p>© 2024 Элитная недвижимость Дубая. Все права защищены.</p>
+        <p>+971 50 123 4567 | info@dubaiproperties.ae</p>
+    </footer>
+
+    <!-- Модальное окно для редактирования -->
+    <div class="modal edit-modal" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Редактирование</h3>
+                <button class="close-modal" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div id="modalContent">
+                <!-- Form content will be here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для детального просмотра объектов -->
+    <div class="modal detail-modal" id="propertyDetailModal">
+        <div class="modal-content detail-modal-content">
+            <div class="detail-carousel" id="detailCarousel"></div>
+            <div class="detail-content">
+                <div class="detail-header">
+                    <div>
+                        <h2 id="detailTitle"></h2>
+                        <p id="detailDeveloper"></p>
+                    </div>
+                    <div id="detailPrice"></div>
+                </div>
+                
+                <div class="detail-info">
+                    <div class="detail-item">
+                        <strong>Площадь</strong>
+                        <p id="detailArea"></p>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Цена</strong>
+                        <p id="detailPriceValue"></p>
+                    </div>
+                </div>
+                
+                <div id="detailLocation"></div>
+                
+                <div id="detailDescription"></div>
+                
+                <div id="detailVideo" style="margin: 2rem 0;"></div>
+                
+                <div class="detail-actions">
+                    <button class="btn" onclick="editCurrentProperty()">
+                        <i class="fas fa-edit"></i> Редактировать
+                    </button>
+                    <button class="btn btn-outline" onclick="closeDetailModal()">
+                        Закрыть
+                    </button>
+                    <button class="btn btn-outline" onclick="deleteCurrentProperty()" style="color: #ff4444; border-color: #ff4444;">
+                        <i class="fas fa-trash"></i> Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для детального просмотра достопримечательностей -->
+    <div class="modal attraction-detail-modal" id="attractionDetailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="attractionDetailTitle"></h3>
+                <button class="close-modal" onclick="closeAttractionDetailModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 0 2rem 2rem;">
+                <div class="attraction-detail-img" id="attractionDetailImage"></div>
+                <p id="attractionDetailDescription" style="line-height: 1.6; color: #333; margin-bottom: 1.5rem;"></p>
+                <div id="attractionDetailVideo"></div>
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button class="btn" onclick="editCurrentAttraction()">
+                        <i class="fas fa-edit"></i> Редактировать
+                    </button>
+                    <button class="btn btn-outline" onclick="closeAttractionDetailModal()">
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для полноэкранного просмотра изображений -->
+    <div class="image-fullscreen" id="imageFullscreen">
+        <button class="close-fullscreen" onclick="closeFullscreen()">&times;</button>
+        <img class="fullscreen-img" id="fullscreenImg" src="" alt="">
+        <div class="zoom-controls">
+            <button class="zoom-btn" onclick="zoomOut()">-</button>
+            <button class="zoom-btn" onclick="resetZoom()">100%</button>
+            <button class="zoom-btn" onclick="zoomIn()">+</button>
+        </div>
+    </div>
+
+    <script>
+        // Основной объект данных
+        let currentData = {
+            attractions: [],
+            properties: [],
+            developers: [],
+            about: {
+                text: "",
+                images: [],
+                video: ""
+            }
+        };
+
+        // Данные по умолчанию
+        const defaultData = {
+            attractions: [
+                {
+                    id: 1,
+                    title: "Бурдж-Халифа",
+                    description: "Самое высокое здание в мире высотой 828 метров, символ современного Дубая.",
+                    image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDA4OGNjIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5CdXJqIEtoYWxpZmE8L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI3MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPjgyOCBtPC90ZXh0Pjwvc3ZnPg==",
+                    video: "",
+                    images: []
+                },
+                {
+                    id: 2,
+                    title: "Пальма Джумейра",
+                    description: "Искусственный архипелаг в форме пальмы, один из самых известных проектов Дубая.",
+                    image: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjMDBjYzg4Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5QYWxtIEp1bWVpcmE8L3RleHQ+PHRleHQgeD0iNTAlIiB5PSI3MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0id2hpdGUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkFydGlmaWNpYWwgaXNsYW5kPC90ZXh0Pjwvc3ZnPg==",
+                    video: "",
+                    images: []
+                }
+            ],
+            properties: [],
+            developers: [
+                {
+                    id: 1,
+                    name: "Emaar Properties",
+                    icon: "🏙️",
+                    projects: 0,
+                    video: ""
+                },
+                {
+                    id: 2,
+                    name: "Damac Properties",
+                    icon: "🏢",
+                    projects: 0,
+                    video: ""
+                },
+                {
+                    id: 3,
+                    name: "Nakheel",
+                    icon: "🌴",
+                    projects: 0,
+                    video: ""
+                },
+                {
+                    id: 4,
+                    name: "Sobha Realty",
+                    icon: "🏘️",
+                    projects: 0,
+                    video: ""
+                }
+            ],
+            about: {
+                text: "<h3>Анна Смирнова</h3><p><strong>Специалист по элитной недвижимости Дубая</strong></p><p>Опыт работы на рынке недвижимости ОАЭ - более 7 лет. Помогу подобрать идеальный объект под ваши цели: инвестиции, ПМЖ или отдых.</p><p>Сертифицированный агент с доступом к эксклюзивным объектам от ведущих застройщиков.</p>",
+                images: [],
+                video: ""
+            }
+        };
+
+        // Загрузка данных из localStorage
+        function loadData() {
+            console.log('Загрузка данных...');
+            const savedData = localStorage.getItem('dubaiPropertiesData');
+            if (savedData) {
+                try {
+                    currentData = JSON.parse(savedData);
+                    console.log('Данные загружены из localStorage:', currentData);
+                } catch (e) {
+                    console.log('Ошибка загрузки данных, использую данные по умолчанию', e);
+                    currentData = JSON.parse(JSON.stringify(defaultData));
+                }
+            } else {
+                console.log('Нет сохраненных данных, использую данные по умолчанию');
+                currentData = JSON.parse(JSON.stringify(defaultData));
+            }
+            
+            // Инициализация массивов если их нет
+            if (!currentData.properties) currentData.properties = [];
+            if (!currentData.attractions) currentData.attractions = defaultData.attractions;
+            if (!currentData.developers) currentData.developers = defaultData.developers;
+            if (!currentData.about) currentData.about = defaultData.about;
+            if (!currentData.about.images) currentData.about.images = [];
+            if (!currentData.about.video) currentData.about.video = "";
+            
+            // Обновляем количество проектов у застройщиков
+            updateDeveloperProjectsCount();
+            
+            renderAll();
+        }
+
+        // Сохранение данных в localStorage
+        function saveData() {
+            console.log('Сохранение данных...', currentData);
+            try {
+                localStorage.setItem('dubaiPropertiesData', JSON.stringify(currentData));
+                console.log('Данные успешно сохранены');
+            } catch (e) {
+                console.error('Ошибка сохранения данных:', e);
+                alert('Ошибка сохранения данных. Проверьте, включен ли localStorage в вашем браузере.');
+            }
+        }
+
+        // Обновление счетчика проектов у застройщиков
+        function updateDeveloperProjectsCount() {
+            currentData.developers.forEach(developer => {
+                developer.projects = currentData.properties.filter(p => p.developerId === developer.id).length;
+            });
+        }
+
+        // Рендер всего
+        function renderAll() {
+            renderAttractions();
+            renderProperties();
+            renderDevelopers();
+            renderAbout();
+            updateDeveloperFilter();
+        }
+
+        // Рендер достопримечательностей
+        function renderAttractions() {
+            const container = document.getElementById('attractionsContainer');
+            if (!container) return;
+            
+            if (currentData.attractions.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-landmark"></i>
+                        <h3>Достопримечательности не добавлены</h3>
+                        <p>Добавьте первую достопримечательность</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = currentData.attractions.map(attr => {
+                const hasVideo = attr.video ? 'has-video' : '';
+                const firstImage = attr.images && attr.images.length > 0 ? attr.images[0] : attr.image;
+                const imageCount = (attr.images && attr.images.length > 0) ? attr.images.length : (attr.image ? 1 : 0);
+                
+                return `
+                    <div class="attraction-card" onclick="viewAttractionDetail(${attr.id})">
+                        <div class="attraction-img ${hasVideo}" style="background-image: url('${firstImage || ''}')">
+                            ${imageCount > 1 ? `<div class="image-count">${imageCount} фото</div>` : ''}
+                            ${attr.video ? '<div class="video-icon"><i class="fas fa-play-circle"></i></div>' : ''}
+                            <div class="attraction-view-btn">Посмотреть</div>
+                        </div>
+                        <div class="attraction-content">
+                            <h3>${attr.title}</h3>
+                            <p>${attr.description.substring(0, 100)}${attr.description.length > 100 ? '...' : ''}</p>
+                            <div class="attraction-actions">
+                                <button class="btn btn-outline" onclick="event.stopPropagation(); openEditModal('attraction', ${attr.id})">
+                                    <i class="fas fa-edit"></i> Редактировать
+                                </button>
+                                <button class="btn btn-outline" onclick="event.stopPropagation(); deleteAttraction(${attr.id})" style="color: #ff4444; border-color: #ff4444;">
+                                    <i class="fas fa-trash"></i> Удалить
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Рендер объектов недвижимости
+        function renderProperties() {
+            const container = document.getElementById('propertiesContainer');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            if (currentData.properties.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-building"></i>
+                        <h3>Объекты не добавлены</h3>
+                        <p>Добавьте первый объект недвижимости</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            currentData.properties.forEach(property => {
+                const developer = currentData.developers.find(d => d.id === property.developerId);
+                const card = createPropertyCard(property, developer);
+                container.appendChild(card);
+            });
+        }
+
+        // Создание карточки объекта
+        function createPropertyCard(property, developer) {
+            const card = document.createElement('div');
+            card.className = 'property-card';
+            
+            let carouselHTML = '';
+            const images = property.images || [];
+            if (images.length > 0) {
+                carouselHTML = createCarouselHTML(property);
+            } else if (property.image) {
+                carouselHTML = `
+                    <div class="carousel-container">
+                        <div class="carousel-slide active" style="background-image: url('${property.image}')"></div>
+                    </div>
+                `;
+            } else {
+                carouselHTML = `
+                    <div class="carousel-container">
+                        <div class="carousel-slide active no-image">
+                            <i class="fas fa-home"></i>
+                            <div>Нет изображения</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            const shortDesc = property.shortDescription || 
+                            (property.description ? property.description.substring(0, 100) + '...' : 'Нет описания');
+            
+            card.innerHTML = `
+                <div class="property-image">
+                    ${carouselHTML}
+                    ${property.badge ? `<div class="property-badge">${property.badge}</div>` : ''}
+                </div>
+                <div class="property-content">
+                    <h3 class="property-title">${property.title}</h3>
+                    <span class="property-developer">${developer ? developer.name : 'Неизвестный застройщик'}</span>
+                    <p>${shortDesc}</p>
+                    <div class="property-details">
+                        <div>
+                            <div>Площадь</div>
+                            <div><strong>${property.area || 0} м²</strong></div>
+                        </div>
+                        <div>
+                            <div>Цена</div>
+                            <div class="property-price">от $${(property.price || 0).toLocaleString()}</div>
+                        </div>
+                    </div>
+                    <div class="property-actions">
+                        <button class="btn btn-outline" onclick="editProperty(${property.id})">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </button>
+                        <button class="btn" onclick="viewPropertyDetail(${property.id})">Подробнее</button>
+                        <button class="btn btn-outline" onclick="deleteProperty(${property.id})" style="color: #ff4444; border-color: #ff4444;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Создание HTML для карусели
+        function createCarouselHTML(property) {
+            const images = property.images || [];
+            const carouselId = `carousel-${property.id}`;
+            
+            let slidesHTML = images.map((img, index) => `
+                <div class="carousel-slide ${index === 0 ? 'active' : ''}" 
+                     style="background-image: url('${img}')"></div>
+            `).join('');
+            
+            let controlsHTML = '';
+            if (images.length > 1) {
+                controlsHTML = `
+                    <button class="carousel-btn prev" onclick="prevSlide(${property.id})">‹</button>
+                    <button class="carousel-btn next" onclick="nextSlide(${property.id})">›</button>
+                    <div class="carousel-dots">
+                        ${images.map((img, index) => `
+                            <span class="carousel-dot ${index === 0 ? 'active' : ''}" 
+                                  onclick="goToSlide(${property.id}, ${index})"></span>
+                        `).join('')}
+                    </div>
+                `;
+            }
+            
+            return `
+                <div class="carousel-container" id="${carouselId}">
+                    ${slidesHTML}
+                    ${controlsHTML}
+                </div>
+            `;
+        }
+
+        // Навигация по карусели
+        function prevSlide(propertyId) {
+            const carousel = document.getElementById(`carousel-${propertyId}`);
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            
+            let currentIndex = 0;
+            slides.forEach((slide, index) => {
+                if (slide.classList.contains('active')) {
+                    currentIndex = index;
+                }
+            });
+            
+            slides[currentIndex].classList.remove('active');
+            if (dots[currentIndex]) dots[currentIndex].classList.remove('active');
+            
+            const newIndex = (currentIndex - 1 + slides.length) % slides.length;
+            slides[newIndex].classList.add('active');
+            if (dots[newIndex]) dots[newIndex].classList.add('active');
+        }
+
+        function nextSlide(propertyId) {
+            const carousel = document.getElementById(`carousel-${propertyId}`);
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            
+            let currentIndex = 0;
+            slides.forEach((slide, index) => {
+                if (slide.classList.contains('active')) {
+                    currentIndex = index;
+                }
+            });
+            
+            slides[currentIndex].classList.remove('active');
+            if (dots[currentIndex]) dots[currentIndex].classList.remove('active');
+            
+            const newIndex = (currentIndex + 1) % slides.length;
+            slides[newIndex].classList.add('active');
+            if (dots[newIndex]) dots[newIndex].classList.add('active');
+        }
+
+        function goToSlide(propertyId, index) {
+            const carousel = document.getElementById(`carousel-${propertyId}`);
+            if (!carousel) return;
+            
+            const slides = carousel.querySelectorAll('.carousel-slide');
+            const dots = carousel.querySelectorAll('.carousel-dot');
+            
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+        }
+
+        // Рендер застройщиков
+        function renderDevelopers() {
+            const container = document.getElementById('developersContainer');
+            if (!container) return;
+            
+            if (currentData.developers.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-city"></i>
+                        <h3>Застройщики не добавлены</h3>
+                        <p>Добавьте первого застройщика</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = currentData.developers.map(dev => {
+                return `
+                    <div class="developer-card" onclick="viewDeveloperDetail(${dev.id})">
+                        <div class="developer-logo">${dev.icon || '🏢'}</div>
+                        <h3>${dev.name}</h3>
+                        <div class="developer-projects">${dev.projects || 0} объектов</div>
+                        <div class="developer-actions">
+                            <button class="btn btn-outline" onclick="event.stopPropagation(); openEditModal('developer', ${dev.id})">
+                                <i class="fas fa-edit"></i> Редактировать
+                            </button>
+                            <button class="btn btn-outline" onclick="event.stopPropagation(); deleteDeveloper(${dev.id})" style="color: #ff4444; border-color: #ff4444;">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Рендер информации "Обо мне"
+        function renderAbout() {
+            const aboutImage = document.getElementById('aboutImage');
+            const aboutText = document.getElementById('aboutText');
+            
+            if (aboutImage) {
+                if (currentData.about.images && currentData.about.images.length > 0) {
+                    aboutImage.style.backgroundImage = `url('${currentData.about.images[0]}')`;
+                    aboutImage.innerHTML = '';
+                } else {
+                    aboutImage.style.backgroundImage = 'none';
+                    aboutImage.innerHTML = '<div class="no-image"><i class="fas fa-user" style="font-size: 3rem; margin-bottom: 1rem;"></i><div>Фото профиля</div></div>';
+                }
+            }
+            
+            if (aboutText) {
+                let aboutHTML = currentData.about.text || '<p>Информация не заполнена</p>';
+                if (currentData.about.video) {
+                    aboutHTML += `<div class="video-container">
+                        <iframe src="${getEmbedVideoUrl(currentData.about.video)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>`;
+                }
+                aboutText.innerHTML = aboutHTML;
+            }
+        }
+
+        // Обновление фильтра застройщиков
+        function updateDeveloperFilter() {
+            const filter = document.getElementById('developerFilter');
+            if (!filter) return;
+            
+            filter.innerHTML = '<option value="all">Все застройщики</option>';
+            currentData.developers.forEach(dev => {
+                const option = document.createElement('option');
+                option.value = dev.id;
+                option.textContent = dev.name;
+                filter.appendChild(option);
+            });
+        }
+
+        // Открытие модального окна редактирования
+        function openEditModal(type, id = null) {
+            const modal = document.getElementById('editModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            if (!modal || !modalTitle || !modalContent) {
+                console.log('Modal elements not found!');
+                return;
+            }
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            let title = '';
+            let content = '';
+            
+            if (type === 'property') {
+                if (id === 'new') {
+                    title = 'Добавить объект недвижимости';
+                    content = getPropertyForm();
+                } else {
+                    title = 'Редактировать объект недвижимости';
+                    const property = currentData.properties.find(p => p.id === id);
+                    if (!property) {
+                        alert('Объект не найден!');
+                        closeEditModal();
+                        return;
+                    }
+                    content = getPropertyForm(property);
+                }
+            } else if (type === 'about') {
+                title = 'Редактировать информацию о себе';
+                content = getAboutForm();
+            } else if (type === 'attraction') {
+                if (id === 'new') {
+                    title = 'Добавить достопримечательность';
+                    content = getAttractionForm();
+                } else {
+                    title = 'Редактировать достопримечательность';
+                    const attraction = currentData.attractions.find(a => a.id === id);
+                    if (!attraction) {
+                        alert('Достопримечательность не найдена!');
+                        closeEditModal();
+                        return;
+                    }
+                    content = getAttractionForm(attraction);
+                }
+            } else if (type === 'developer') {
+                if (id === 'new') {
+                    title = 'Добавить застройщика';
+                    content = getDeveloperForm();
+                } else {
+                    title = 'Редактировать застройщика';
+                    const developer = currentData.developers.find(d => d.id === id);
+                    if (!developer) {
+                        alert('Застройщик не найден!');
+                        closeEditModal();
+                        return;
+                    }
+                    content = getDeveloperForm(developer);
+                }
+            } else {
+                title = 'Редактирование';
+                content = '<p>Функция в разработке</p>';
+            }
+            
+            modalTitle.textContent = title;
+            modalContent.innerHTML = content;
+            
+            // Инициализация drag-and-drop после загрузки формы
+            setTimeout(initDragAndDrop, 100);
+        }
+
+        // Форма "Обо мне"
+        function getAboutForm() {
+            return `
+                <div id="aboutFormContainer">
+                    <div class="form-group">
+                        <label for="aboutTextInput">Текст о себе (HTML поддерживается)</label>
+                        <textarea id="aboutTextInput" rows="10">${currentData.about.text || ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="aboutVideoInput">Видео (YouTube ссылка)</label>
+                        <input type="url" id="aboutVideoInput" value="${currentData.about.video || ''}" placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Фотография профиля</label>
+                        <div class="drag-drop-area" id="aboutDragDropArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Кликните для загрузки фотографии</p>
+                            <p class="drag-drop-text">Рекомендуемый размер: 300x400px</p>
+                            <input type="file" id="aboutImageUpload" style="display: none;" accept="image/*">
+                        </div>
+                        
+                        <div class="image-preview" id="aboutImagePreview">
+                            ${currentData.about.images && currentData.about.images.length > 0 ? `
+                                <div class="preview-item">
+                                    <img src="${currentData.about.images[0]}" alt="Фото профиля">
+                                    <button type="button" class="remove-image" onclick="removeAboutImage()">&times;</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn" onclick="saveAbout()">
+                            <i class="fas fa-save"></i> Сохранить изменения
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="closeEditModal()">Отмена</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Форма достопримечательности
+        function getAttractionForm(attraction = null) {
+            const isEdit = attraction !== null;
+            const attractionId = isEdit ? attraction.id : '';
+            
+            let imagePreview = '';
+            const images = isEdit ? (attraction.images || []) : [];
+            if (images.length > 0) {
+                imagePreview = images.map((img, index) => `
+                    <div class="preview-item">
+                        <img src="${img}" alt="Изображение ${index + 1}">
+                        <button type="button" class="remove-image" onclick="removeAttractionImage(${attractionId}, ${index})">&times;</button>
+                    </div>
+                `).join('');
+            }
+            
+            return `
+                <div id="attractionFormContainer">
+                    <input type="hidden" id="attractionId" value="${attractionId}">
+                    
+                    <div class="form-group">
+                        <label for="attractionTitle">Название *</label>
+                        <input type="text" id="attractionTitle" value="${isEdit ? attraction.title : ''}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attractionDescription">Описание *</label>
+                        <textarea id="attractionDescription" required>${isEdit ? attraction.description : ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="attractionVideo">Видео (YouTube ссылка)</label>
+                        <input type="url" id="attractionVideo" value="${isEdit ? (attraction.video || '') : ''}" placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Изображения (можно загрузить несколько)</label>
+                        <div class="drag-drop-area" id="attractionDragDropArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Кликните для загрузки изображений</p>
+                            <p class="drag-drop-text">Можно загружать несколько изображений (макс. 10)</p>
+                            <input type="file" id="attractionImageUpload" multiple style="display: none;" accept="image/*">
+                        </div>
+                        
+                        <div class="image-preview" id="attractionImagePreview">
+                            ${imagePreview}
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn" onclick="saveAttraction()">
+                            <i class="fas fa-save"></i> ${isEdit ? 'Сохранить изменения' : 'Добавить достопримечательность'}
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="closeEditModal()">Отмена</button>
+                        ${isEdit ? `<button type="button" class="btn btn-outline" onclick="deleteAttraction(${attractionId})" style="color: #ff4444; margin-left: 10px;">
+                            <i class="fas fa-trash"></i> Удалить
+                        </button>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Форма застройщика
+        function getDeveloperForm(developer = null) {
+            const isEdit = developer !== null;
+            const developerId = isEdit ? developer.id : '';
+            
+            const projectsCount = isEdit ? currentData.properties.filter(p => p.developerId === developerId).length : 0;
+            
+            return `
+                <div id="developerFormContainer">
+                    <input type="hidden" id="developerId" value="${developerId}">
+                    
+                    <div class="form-group">
+                        <label for="developerName">Название *</label>
+                        <input type="text" id="developerName" value="${isEdit ? developer.name : ''}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="developerIcon">Иконка (эмодзи)</label>
+                        <input type="text" id="developerIcon" value="${isEdit ? developer.icon : '🏢'}" placeholder="🏢, 🏙️, 🌴 и т.д.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="developerVideo">Видео (YouTube ссылка)</label>
+                        <input type="url" id="developerVideo" value="${isEdit ? (developer.video || '') : ''}" placeholder="https://www.youtube.com/watch?v=...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Количество объектов: <strong>${projectsCount}</strong></label>
+                        <p style="color: #666; font-size: 0.9rem;">Автоматически рассчитывается по добавленным объектам</p>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn" onclick="saveDeveloper()">
+                            <i class="fas fa-save"></i> ${isEdit ? 'Сохранить изменения' : 'Добавить застройщика'}
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="closeEditModal()">Отмена</button>
+                        ${isEdit ? `<button type="button" class="btn btn-outline" onclick="deleteDeveloper(${developerId})" style="color: #ff4444; margin-left: 10px;">
+                            <i class="fas fa-trash"></i> Удалить
+                        </button>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Форма объекта недвижимости
+        function getPropertyForm(property = null) {
+            const isEdit = property !== null;
+            const propertyId = isEdit ? property.id : '';
+            
+            let developerOptions = '<option value="">Выберите застройщика</option>';
+            currentData.developers.forEach(dev => {
+                const selected = isEdit && property.developerId === dev.id ? 'selected' : '';
+                developerOptions += `<option value="${dev.id}" ${selected}>${dev.name}</option>`;
+            });
+            
+            let imagePreview = '';
+            const images = isEdit ? (property.images || []) : [];
+            if (images.length > 0) {
+                imagePreview = images.map((img, index) => `
+                    <div class="preview-item">
+                        <img src="${img}" alt="Изображение ${index + 1}">
+                        <button type="button" class="remove-image" onclick="removePropertyImage(${propertyId}, ${index})">&times;</button>
+                    </div>
+                `).join('');
+            }
+            
+            // Проверяем, есть ли видео превью
+            let videoPreview = '';
+            if (isEdit && property.video && property.video.startsWith('data:')) {
+                videoPreview = `
+                    <div class="video-preview">
+                        <video controls style="width: 100%; max-height: 300px; border-radius: 5px;">
+                            <source src="${property.video}" type="video/mp4">
+                            Ваш браузер не поддерживает видео.
+                        </video>
+                        <button type="button" class="btn btn-outline" onclick="removeVideoPreview()" style="margin-top: 0.5rem; font-size: 0.8rem;">
+                            <i class="fas fa-trash"></i> Удалить видео
+                        </button>
+                    </div>
+                `;
+            }
+            
+            return `
+                <div id="propertyFormContainer">
+                    <input type="hidden" id="propertyId" value="${propertyId}">
+                    
+                    <div class="form-group">
+                        <label for="propertyTitle">Название объекта *</label>
+                        <input type="text" id="propertyTitle" value="${isEdit ? property.title : ''}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="propertyDescription">Описание *</label>
+                        <textarea id="propertyDescription" required>${isEdit ? property.description : ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="shortDescription">Краткое описание (для карточки)</label>
+                        <textarea id="shortDescription">${isEdit ? (property.shortDescription || '') : ''}</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="propertyPrice">Цена от, $ *</label>
+                        <input type="number" id="propertyPrice" value="${isEdit ? property.price : ''}" required min="0" step="1000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="propertyArea">Площадь, м² *</label>
+                        <input type="number" id="propertyArea" value="${isEdit ? property.area : ''}" required min="0" step="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Видео (YouTube ссылка или загрузите файл перетаскиванием)</label>
+                        <div class="video-drag-drop-area" id="propertyVideoDragDropArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Перетащите видеофайл сюда или кликните для загрузки</p>
+                            <p class="drag-drop-text">Поддерживаются MP4, WebM, OGG (макс. 50MB)</p>
+                            <input type="file" id="propertyVideoUpload" class="hidden-video-input" accept="video/*">
+                        </div>
+                        <div class="video-or-text">ИЛИ</div>
+                        <input type="url" id="propertyVideo" value="${isEdit && !property.video.startsWith('data:') ? (property.video || '') : ''}" placeholder="https://www.youtube.com/watch?v=...">
+                        <div id="propertyVideoPreview">${videoPreview}</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="propertyLocationLink">Ссылка на локацию</label>
+                        <input type="url" id="propertyLocationLink" value="${isEdit ? (property.locationLink || '') : ''}" placeholder="https://maps.google.com/...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="propertyDeveloper">Застройщик *</label>
+                        <select id="propertyDeveloper" required>
+                            ${developerOptions}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="propertyBadge">Пометка (бейдж)</label>
+                        <input type="text" id="propertyBadge" value="${isEdit ? (property.badge || '') : ''}" placeholder="Premium, Luxury, Exclusive">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Изображения объекта (можно загрузить несколько)</label>
+                        <div class="drag-drop-area" id="dragDropArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Кликните для загрузки изображений или перетащите файлы</p>
+                            <p class="drag-drop-text">Можно загружать несколько изображений (макс. 10)</p>
+                            <input type="file" id="imageUpload" multiple style="display: none;" accept="image/*">
+                        </div>
+                        
+                        <div class="image-preview" id="imagePreview">
+                            ${imagePreview}
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn" onclick="saveProperty()" id="savePropertyBtn">
+                            <i class="fas fa-save"></i> ${isEdit ? 'Сохранить изменения' : 'Добавить объект'}
+                        </button>
+                        <button type="button" class="btn btn-outline" onclick="closeEditModal()">Отмена</button>
+                        ${isEdit ? `<button type="button" class="btn btn-outline" onclick="deleteProperty(${propertyId})" style="color: #ff4444; margin-left: 10px;">
+                            <i class="fas fa-trash"></i> Удалить объект
+                        </button>` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Инициализация drag-and-drop
+        function initDragAndDrop() {
+            // Настройка drag-and-drop для изображений
+            const dragDropAreas = document.querySelectorAll('.drag-drop-area');
+            
+            dragDropAreas.forEach(area => {
+                area.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.add('dragover');
+                });
+                
+                area.addEventListener('dragenter', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.add('dragover');
+                });
+                
+                area.addEventListener('dragleave', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.remove('dragover');
+                });
+                
+                area.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.remove('dragover');
+                    
+                    const files = e.dataTransfer.files;
+                    const areaId = this.id;
+                    
+                    handleImageUpload(files, areaId);
+                });
+                
+                // Клик для открытия файлового диалога
+                area.addEventListener('click', function() {
+                    const areaId = this.id;
+                    let fileInputId = '';
+                    
+                    if (areaId.includes('about')) {
+                        fileInputId = 'aboutImageUpload';
+                    } else if (areaId.includes('attraction')) {
+                        fileInputId = 'attractionImageUpload';
+                    } else {
+                        fileInputId = 'imageUpload';
+                    }
+                    
+                    const fileInput = document.getElementById(fileInputId);
+                    if (fileInput) {
+                        fileInput.click();
+                    }
+                });
+            });
+            
+            // Настройка drag-and-drop для видео
+            const videoDragDropAreas = document.querySelectorAll('.video-drag-drop-area');
+            
+            videoDragDropAreas.forEach(area => {
+                area.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.add('dragover');
+                });
+                
+                area.addEventListener('dragenter', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.add('dragover');
+                });
+                
+                area.addEventListener('dragleave', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.remove('dragover');
+                });
+                
+                area.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.remove('dragover');
+                    
+                    const files = e.dataTransfer.files;
+                    const areaId = this.id;
+                    
+                    handleVideoUpload(files, areaId);
+                });
+                
+                // Клик для открытия файлового диалога
+                area.addEventListener('click', function() {
+                    const areaId = this.id;
+                    let fileInputId = '';
+                    
+                    if (areaId.includes('propertyVideo')) {
+                        fileInputId = 'propertyVideoUpload';
+                    }
+                    
+                    const fileInput = document.getElementById(fileInputId);
+                    if (fileInput) {
+                        fileInput.click();
+                    }
+                });
+            });
+            
+            // Настройка обработчиков для файловых input'ов
+            const imageUploads = [
+                { inputId: 'aboutImageUpload', type: 'about' },
+                { inputId: 'attractionImageUpload', type: 'attraction' },
+                { inputId: 'imageUpload', type: 'property' }
+            ];
+            
+            imageUploads.forEach(item => {
+                const input = document.getElementById(item.inputId);
+                if (input) {
+                    input.addEventListener('change', function(e) {
+                        handleImageUpload(e.target.files, item.type);
+                    });
+                }
+            });
+            
+            // Настройка обработчиков для видео input'ов
+            const videoUploads = [
+                { inputId: 'propertyVideoUpload', type: 'propertyVideo' }
+            ];
+            
+            videoUploads.forEach(item => {
+                const input = document.getElementById(item.inputId);
+                if (input) {
+                    input.addEventListener('change', function(e) {
+                        handleVideoUpload(e.target.files, 'propertyVideoDragDropArea');
+                    });
+                }
+            });
+        }
+
+        // Обработка загрузки изображений
+        function handleImageUpload(files, type) {
+            const fileArray = Array.from(files).filter(file => 
+                file.type.startsWith('image/')
+            );
+            
+            if (fileArray.length === 0) {
+                alert('Пожалуйста, загрузите файлы изображений');
+                return;
+            }
+            
+            // Определяем превью-контейнер
+            let previewId = '';
+            if (type === 'about') {
+                previewId = 'aboutImagePreview';
+            } else if (type === 'attraction') {
+                previewId = 'attractionImagePreview';
+            } else {
+                previewId = 'imagePreview';
+            }
+            
+            const preview = document.getElementById(previewId);
+            if (!preview) return;
+            
+            // Для about - заменяем изображение, для других - добавляем
+            const replace = type === 'about';
+            const maxImages = type === 'about' ? 1 : 10;
+            
+            if (replace) {
+                preview.innerHTML = '';
+            }
+            
+            // Ограничиваем количество изображений
+            const imagesToAdd = fileArray.slice(0, maxImages - (replace ? 0 : preview.children.length));
+            
+            if (imagesToAdd.length === 0) {
+                alert(`Можно загрузить максимум ${maxImages} изображений`);
+                return;
+            }
+            
+            imagesToAdd.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgUrl = e.target.result;
+                    
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    previewItem.innerHTML = `
+                        <img src="${imgUrl}" alt="Загруженное изображение">
+                        <button type="button" class="remove-image" onclick="this.parentElement.remove()">&times;</button>
+                    `;
+                    preview.appendChild(previewItem);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Обработка загрузки видео
+        function handleVideoUpload(files, areaId) {
+            console.log('Обработка загрузки видео:', files, areaId);
+            
+            const videoFiles = Array.from(files).filter(file => 
+                file.type.startsWith('video/') || 
+                ['video/mp4', 'video/webm', 'video/ogg', 'video/quicktime', 'video/x-msvideo'].includes(file.type)
+            );
+            
+            if (videoFiles.length === 0) {
+                alert('Пожалуйста, загрузите видеофайл (MP4, WebM, OGG, MOV, AVI)');
+                return;
+            }
+            
+            // Для видео обычно загружаем только один файл
+            const videoFile = videoFiles[0];
+            
+            // Проверяем размер файла (максимум 50MB)
+            if (videoFile.size > 50 * 1024 * 1024) {
+                alert('Видеофайл слишком большой. Максимальный размер: 50MB');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const videoDataUrl = e.target.result;
+                
+                // Определяем превью-контейнер
+                let previewId = '';
+                if (areaId.includes('propertyVideo')) {
+                    previewId = 'propertyVideoPreview';
+                }
+                
+                const preview = document.getElementById(previewId);
+                if (preview) {
+                    preview.innerHTML = `
+                        <div class="video-preview">
+                            <video controls style="width: 100%; max-height: 300px; border-radius: 5px;">
+                                <source src="${videoDataUrl}" type="${videoFile.type}">
+                                Ваш браузер не поддерживает видео.
+                            </video>
+                            <button type="button" class="btn btn-outline" onclick="removeVideoPreview()" style="margin-top: 0.5rem; font-size: 0.8rem;">
+                                <i class="fas fa-trash"></i> Удалить видео
+                            </button>
+                        </div>
+                    `;
+                    
+                    // Очищаем поле YouTube ссылки
+                    const videoInput = document.getElementById('propertyVideo');
+                    if (videoInput) {
+                        videoInput.value = videoDataUrl;
+                    }
+                    
+                    alert('Видео успешно загружено!');
+                }
+            };
+            
+            reader.onerror = function() {
+                alert('Ошибка при загрузке видео');
+            };
+            
+            reader.readAsDataURL(videoFile);
+        }
+
+        // Удаление видео превью
+        function removeVideoPreview() {
+            const preview = document.getElementById('propertyVideoPreview');
+            if (preview) {
+                preview.innerHTML = '';
+            }
+            
+            const videoInput = document.getElementById('propertyVideo');
+            if (videoInput) {
+                videoInput.value = '';
+            }
+        }
+
+        // Удаление изображения из "Обо мне"
+        function removeAboutImage() {
+            const preview = document.getElementById('aboutImagePreview');
+            if (preview) {
+                preview.innerHTML = '';
+            }
+        }
+
+        // Удаление изображения достопримечательности
+        function removeAttractionImage(attractionId, index) {
+            const attraction = currentData.attractions.find(a => a.id === attractionId);
+            if (!attraction) return;
+            
+            if (attraction.images && attraction.images.length > index) {
+                attraction.images.splice(index, 1);
+                saveData();
+                openEditModal('attraction', attractionId);
+            }
+        }
+
+        // Удаление изображения объекта
+        function removePropertyImage(propertyId, index) {
+            const property = currentData.properties.find(p => p.id === propertyId);
+            if (property && property.images) {
+                property.images.splice(index, 1);
+                saveData();
+                openEditModal('property', propertyId);
+            }
+        }
+
+        // Сохранение информации "Обо мне"
+        function saveAbout() {
+            const textInput = document.getElementById('aboutTextInput');
+            const videoInput = document.getElementById('aboutVideoInput');
+            
+            if (!textInput) {
+                alert('Ошибка: поле текста не найдено');
+                return;
+            }
+            
+            const text = textInput.value.trim();
+            if (!text) {
+                alert('Введите текст о себе');
+                textInput.focus();
+                return;
+            }
+            
+            currentData.about.text = text;
+            currentData.about.video = videoInput ? videoInput.value.trim() : '';
+            
+            const preview = document.getElementById('aboutImagePreview');
+            if (preview) {
+                const img = preview.querySelector('img');
+                if (img && img.src.startsWith('data:')) {
+                    currentData.about.images = [img.src];
+                } else if (preview.innerHTML.trim() === '') {
+                    currentData.about.images = [];
+                }
+            }
+            
+            saveData();
+            renderAbout();
+            closeEditModal();
+            alert('Информация успешно сохранена!');
+        }
+
+        // Сохранение достопримечательности
+        function saveAttraction() {
+            const titleInput = document.getElementById('attractionTitle');
+            const descriptionInput = document.getElementById('attractionDescription');
+            const videoInput = document.getElementById('attractionVideo');
+            
+            if (!titleInput || !descriptionInput) {
+                alert('Ошибка: не все поля найдены');
+                return;
+            }
+            
+            const title = titleInput.value.trim();
+            const description = descriptionInput.value.trim();
+            const video = videoInput ? videoInput.value.trim() : '';
+            
+            if (!title) {
+                alert('Введите название достопримечательности');
+                titleInput.focus();
+                return;
+            }
+            
+            if (!description) {
+                alert('Введите описание достопримечательности');
+                descriptionInput.focus();
+                return;
+            }
+            
+            const idInput = document.getElementById('attractionId');
+            const preview = document.getElementById('attractionImagePreview');
+            
+            const images = [];
+            if (preview) {
+                const imgElements = preview.querySelectorAll('img');
+                imgElements.forEach(img => {
+                    if (img.src && img.src.startsWith('data:')) {
+                        images.push(img.src);
+                    }
+                });
+            }
+            
+            if (idInput.value && idInput.value !== '') {
+                const attractionId = parseInt(idInput.value);
+                const index = currentData.attractions.findIndex(a => a.id === attractionId);
+                
+                if (index !== -1) {
+                    currentData.attractions[index] = {
+                        ...currentData.attractions[index],
+                        title,
+                        description,
+                        video,
+                        images: images.length > 0 ? images : currentData.attractions[index].images
+                    };
+                }
+            } else {
+                const newId = currentData.attractions.length > 0 
+                    ? Math.max(...currentData.attractions.map(a => a.id)) + 1 
+                    : 1;
+                
+                const newAttraction = {
+                    id: newId,
+                    title,
+                    description,
+                    video,
+                    images: images
+                };
+                
+                currentData.attractions.push(newAttraction);
+            }
+            
+            saveData();
+            renderAttractions();
+            closeEditModal();
+            alert(idInput.value ? 'Достопримечательность успешно обновлена!' : 'Достопримечательность успешно добавлена!');
+        }
+
+        // Сохранение застройщика
+        function saveDeveloper() {
+            const nameInput = document.getElementById('developerName');
+            const iconInput = document.getElementById('developerIcon');
+            const videoInput = document.getElementById('developerVideo');
+            
+            if (!nameInput) {
+                alert('Ошибка: не все поля найдены');
+                return;
+            }
+            
+            const name = nameInput.value.trim();
+            const icon = iconInput ? iconInput.value.trim() : '🏢';
+            const video = videoInput ? videoInput.value.trim() : '';
+            
+            if (!name) {
+                alert('Введите название застройщика');
+                nameInput.focus();
+                return;
+            }
+            
+            const idInput = document.getElementById('developerId');
+            
+            if (idInput.value && idInput.value !== '') {
+                const developerId = parseInt(idInput.value);
+                const index = currentData.developers.findIndex(d => d.id === developerId);
+                
+                if (index !== -1) {
+                    currentData.developers[index] = {
+                        ...currentData.developers[index],
+                        name,
+                        icon,
+                        video
+                    };
+                }
+            } else {
+                const newId = currentData.developers.length > 0 
+                    ? Math.max(...currentData.developers.map(d => d.id)) + 1 
+                    : 1;
+                
+                const newDeveloper = {
+                    id: newId,
+                    name,
+                    icon,
+                    video,
+                    projects: 0
+                };
+                
+                currentData.developers.push(newDeveloper);
+            }
+            
+            saveData();
+            renderDevelopers();
+            updateDeveloperFilter();
+            closeEditModal();
+            alert(idInput.value ? 'Застройщик успешно обновлен!' : 'Застройщик успешно добавлен!');
+        }
+
+        // Сохранение объекта недвижимости
+        function saveProperty() {
+            console.log('Начало сохранения объекта...');
+            
+            // Получаем элементы формы
+            const titleInput = document.getElementById('propertyTitle');
+            const descriptionInput = document.getElementById('propertyDescription');
+            const priceInput = document.getElementById('propertyPrice');
+            const areaInput = document.getElementById('propertyArea');
+            const developerInput = document.getElementById('propertyDeveloper');
+            const videoInput = document.getElementById('propertyVideo');
+            
+            // Проверка обязательных полей
+            if (!titleInput || !descriptionInput || !priceInput || !areaInput || !developerInput) {
+                console.error('Ошибка: не все обязательные поля найдены');
+                alert('Ошибка: не все обязательные поля найдены');
+                return;
+            }
+            
+            // Получаем значения
+            const title = titleInput.value.trim();
+            const description = descriptionInput.value.trim();
+            const price = parseFloat(priceInput.value);
+            const area = parseFloat(areaInput.value);
+            const developerId = parseInt(developerInput.value);
+            const video = videoInput ? videoInput.value.trim() : '';
+            
+            console.log('Получены значения:', {title, description, price, area, developerId, video});
+            
+            // Валидация
+            if (!title) {
+                alert('Введите название объекта');
+                titleInput.focus();
+                return;
+            }
+            
+            if (!description) {
+                alert('Введите описание объекта');
+                descriptionInput.focus();
+                return;
+            }
+            
+            if (isNaN(price) || price <= 0) {
+                alert('Введите корректную цену');
+                priceInput.focus();
+                return;
+            }
+            
+            if (isNaN(area) || area <= 0) {
+                alert('Введите корректную площадь');
+                areaInput.focus();
+                return;
+            }
+            
+            if (isNaN(developerId) || developerId <= 0) {
+                alert('Выберите застройщика');
+                developerInput.focus();
+                return;
+            }
+            
+            // Получаем дополнительные поля
+            const idInput = document.getElementById('propertyId');
+            const shortDescriptionInput = document.getElementById('shortDescription');
+            const locationLinkInput = document.getElementById('propertyLocationLink');
+            const badgeInput = document.getElementById('propertyBadge');
+            
+            const shortDescription = shortDescriptionInput ? shortDescriptionInput.value.trim() : '';
+            const locationLink = locationLinkInput ? locationLinkInput.value.trim() : '';
+            const badge = badgeInput ? badgeInput.value.trim() : '';
+            
+            // Собираем изображения из превью
+            const preview = document.getElementById('imagePreview');
+            const images = [];
+            if (preview) {
+                const imgElements = preview.querySelectorAll('img');
+                console.log('Найдено изображений в превью:', imgElements.length);
+                
+                imgElements.forEach((img, index) => {
+                    if (img.src && img.src.startsWith('data:')) {
+                        images.push(img.src);
+                        console.log(`Изображение ${index} добавлено`);
+                    }
+                });
+            }
+            
+            // Определяем ID объекта
+            const propertyId = idInput && idInput.value ? parseInt(idInput.value) : null;
+            const isEdit = !!propertyId;
+            
+            console.log('Режим:', isEdit ? 'Редактирование' : 'Создание', 'ID:', propertyId);
+            
+            try {
+                if (isEdit) {
+                    // Обновляем существующий объект
+                    const index = currentData.properties.findIndex(p => p.id === propertyId);
+                    if (index !== -1) {
+                        currentData.properties[index] = {
+                            ...currentData.properties[index],
+                            title,
+                            description,
+                            shortDescription: shortDescription || currentData.properties[index].shortDescription,
+                            price,
+                            area,
+                            video: video || currentData.properties[index].video,
+                            locationLink: locationLink || currentData.properties[index].locationLink,
+                            developerId,
+                            badge: badge || currentData.properties[index].badge,
+                            images: images.length > 0 ? images : currentData.properties[index].images
+                        };
+                        console.log('Объект обновлен:', currentData.properties[index]);
+                    } else {
+                        console.error('Объект для редактирования не найден');
+                        alert('Объект для редактирования не найден');
+                        return;
+                    }
+                } else {
+                    // Создаем новый объект
+                    const newId = currentData.properties.length > 0 
+                        ? Math.max(...currentData.properties.map(p => p.id)) + 1 
+                        : 1;
+                    
+                    const newProperty = {
+                        id: newId,
+                        title,
+                        description,
+                        shortDescription,
+                        price,
+                        area,
+                        video,
+                        locationLink,
+                        developerId,
+                        badge,
+                        images
+                    };
+                    
+                    currentData.properties.push(newProperty);
+                    console.log('Создан новый объект:', newProperty);
+                }
+                
+                // Обновляем счетчик проектов у застройщиков
+                updateDeveloperProjectsCount();
+                
+                // Сохраняем данные
+                saveData();
+                console.log('Данные сохранены');
+                
+                // Обновляем отображение
+                renderProperties();
+                renderDevelopers();
+                console.log('Отображение обновлено');
+                
+                // Закрываем модальное окно
+                closeEditModal();
+                console.log('Модальное окно закрыто');
+                
+                // Показываем сообщение об успехе
+                setTimeout(() => {
+                    alert(isEdit ? 'Объект успешно обновлен!' : 'Объект успешно добавлен!');
+                }, 100);
+                
+            } catch (error) {
+                console.error('Ошибка при сохранении:', error);
+                alert('Произошла ошибка при сохранении: ' + error.message);
+            }
+        }
+
+        // Закрытие модального окна редактирования
+        function closeEditModal() {
+            const modal = document.getElementById('editModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                const modalContent = document.getElementById('modalContent');
+                if (modalContent) modalContent.innerHTML = '';
+            }
+        }
+
+        // Редактирование объекта
+        function editProperty(propertyId) {
+            openEditModal('property', propertyId);
+        }
+
+        // Удаление объекта
+        function deleteProperty(propertyId) {
+            if (confirm('Вы уверены, что хотите удалить этот объект?')) {
+                currentData.properties = currentData.properties.filter(p => p.id !== propertyId);
+                updateDeveloperProjectsCount();
+                saveData();
+                renderProperties();
+                renderDevelopers();
+                alert('Объект успешно удален!');
+            }
+        }
+
+        // Удаление достопримечательности
+        function deleteAttraction(attractionId) {
+            if (confirm('Вы уверены, что хотите удалить эту достопримечательность?')) {
+                currentData.attractions = currentData.attractions.filter(a => a.id !== attractionId);
+                saveData();
+                renderAttractions();
+                alert('Достопримечательность успешно удалена!');
+            }
+        }
+
+        // Удаление застройщика
+        function deleteDeveloper(developerId) {
+            if (confirm('Вы уверены, что хотите удалить этого застройщика?')) {
+                // Проверяем, есть ли объекты у этого застройщика
+                const hasProperties = currentData.properties.some(p => p.developerId === developerId);
+                if (hasProperties) {
+                    if (!confirm('У этого застройщика есть объекты. Удалить застройщика и все его объекты?')) {
+                        return;
+                    }
+                    // Удаляем объекты застройщика
+                    currentData.properties = currentData.properties.filter(p => p.developerId !== developerId);
+                }
+                
+                currentData.developers = currentData.developers.filter(d => d.id !== developerId);
+                updateDeveloperProjectsCount();
+                saveData();
+                renderDevelopers();
+                updateDeveloperFilter();
+                renderProperties();
+                alert('Застройщик успешно удален!');
+            }
+        }
+
+        // Получение embed URL для YouTube
+        function getEmbedVideoUrl(url) {
+            if (!url) return '';
+            
+            if (url.includes('youtube.com/watch?v=')) {
+                const videoId = url.split('v=')[1]?.split('&')[0];
+                return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+            } else if (url.includes('youtu.be/')) {
+                const videoId = url.split('youtu.be/')[1]?.split('?')[0];
+                return videoId ? `https://www.youtube.com/embed/${videoId}` : '';
+            } else if (url.includes('youtube.com/embed/')) {
+                return url;
+            }
+            
+            return url;
+        }
+
+        // Просмотр деталей достопримечательности
+        function viewAttractionDetail(attractionId) {
+            const attraction = currentData.attractions.find(a => a.id === attractionId);
+            if (!attraction) return;
+            
+            document.getElementById('attractionDetailTitle').textContent = attraction.title;
+            const imageEl = document.getElementById('attractionDetailImage');
+            const images = attraction.images || [];
+            const mainImage = images.length > 0 ? images[0] : '';
+            
+            if (mainImage) {
+                imageEl.style.backgroundImage = `url('${mainImage}')`;
+                imageEl.innerHTML = '';
+                imageEl.onclick = function() {
+                    openFullscreenImage(mainImage);
+                };
+                imageEl.style.cursor = 'pointer';
+            } else {
+                imageEl.style.backgroundImage = 'none';
+                imageEl.innerHTML = '<div class="no-image"><i class="fas fa-landmark"></i><div>Нет изображения</div></div>';
+                imageEl.onclick = null;
+                imageEl.style.cursor = 'default';
+            }
+            
+            document.getElementById('attractionDetailDescription').textContent = attraction.description;
+            const videoEl = document.getElementById('attractionDetailVideo');
+            if (attraction.video) {
+                videoEl.innerHTML = `
+                    <h4 style="color: var(--dark); margin-bottom: 1rem;">Видео</h4>
+                    <div class="video-container">
+                        <iframe src="${getEmbedVideoUrl(attraction.video)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                `;
+            } else {
+                videoEl.innerHTML = '';
+            }
+            
+            const modal = document.getElementById('attractionDetailModal');
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            window.currentAttractionDetailId = attractionId;
+        }
+
+        function closeAttractionDetailModal() {
+            const modal = document.getElementById('attractionDetailModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function editCurrentAttraction() {
+            closeAttractionDetailModal();
+            openEditModal('attraction', window.currentAttractionDetailId);
+        }
+
+        // Просмотр деталей застройщика
+        function viewDeveloperDetail(developerId) {
+            const developer = currentData.developers.find(d => d.id === developerId);
+            if (!developer) return;
+            
+            const projectsCount = currentData.properties.filter(p => p.developerId === developerId).length;
+            
+            let detailHTML = `
+                <div style="max-width: 800px; margin: 0 auto; background: white; border-radius: 10px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">${developer.icon || '🏢'}</div>
+                        <h2 style="color: var(--dark); margin-bottom: 0.5rem;">${developer.name}</h2>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 5px; margin-bottom: 1.5rem;">
+                        <strong>Количество объектов:</strong> ${projectsCount}
+                    </div>
+                    ${developer.video ? `<div class="video-container">
+                        <iframe src="${getEmbedVideoUrl(developer.video)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>` : ''}
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button class="btn" onclick="openEditModal('developer', ${developer.id}); this.parentElement.parentElement.remove()">
+                            <i class="fas fa-edit"></i> Редактировать
+                        </button>
+                        <button class="btn btn-outline" onclick="this.parentElement.parentElement.remove()">
+                            Закрыть
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            const detailDiv = document.createElement('div');
+            detailDiv.className = 'modal';
+            detailDiv.style.display = 'flex';
+            detailDiv.style.alignItems = 'center';
+            detailDiv.style.justifyContent = 'center';
+            detailDiv.innerHTML = detailHTML;
+            
+            detailDiv.onclick = function(e) {
+                if (e.target === this) {
+                    this.remove();
+                    document.body.style.overflow = 'auto';
+                }
+            };
+            
+            document.body.appendChild(detailDiv);
+            document.body.style.overflow = 'hidden';
+            
+            detailDiv.querySelector('.btn-outline').onclick = function() {
+                detailDiv.remove();
+                document.body.style.overflow = 'auto';
+            };
+        }
+
+        // Полноэкранный просмотр изображений
+        function openFullscreenImage(imageUrl) {
+            const fullscreen = document.getElementById('imageFullscreen');
+            const img = document.getElementById('fullscreenImg');
+            
+            img.src = imageUrl;
+            img.style.transform = 'scale(1)';
+            fullscreen.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            window.currentZoom = 1;
+        }
+
+        function closeFullscreen() {
+            const fullscreen = document.getElementById('imageFullscreen');
+            fullscreen.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function zoomIn() {
+            window.currentZoom = (window.currentZoom || 1) * 1.2;
+            document.getElementById('fullscreenImg').style.transform = `scale(${window.currentZoom})`;
+        }
+
+        function zoomOut() {
+            window.currentZoom = Math.max(0.5, (window.currentZoom || 1) * 0.8);
+            document.getElementById('fullscreenImg').style.transform = `scale(${window.currentZoom})`;
+        }
+
+        function resetZoom() {
+            window.currentZoom = 1;
+            document.getElementById('fullscreenImg').style.transform = 'scale(1)';
+        }
+
+        // Просмотр деталей объекта
+        function viewPropertyDetail(propertyId) {
+            const property = currentData.properties.find(p => p.id === propertyId);
+            if (!property) return;
+            
+            const developer = currentData.developers.find(d => d.id === property.developerId);
+            const modal = document.getElementById('propertyDetailModal');
+            const carousel = document.getElementById('detailCarousel');
+            
+            if (!modal || !carousel) return;
+            
+            document.getElementById('detailTitle').textContent = property.title;
+            document.getElementById('detailDeveloper').textContent = developer ? developer.name : 'Неизвестный застройщик';
+            document.getElementById('detailPrice').innerHTML = `<div class="property-price">от $${property.price.toLocaleString()}</div>`;
+            document.getElementById('detailPriceValue').textContent = `$${property.price.toLocaleString()}`;
+            document.getElementById('detailArea').textContent = `${property.area} м²`;
+            
+            let description = property.description || '';
+            description = description.replace(/\n/g, '<br>');
+            document.getElementById('detailDescription').innerHTML = description;
+            
+            const locationEl = document.getElementById('detailLocation');
+            if (property.locationLink) {
+                locationEl.innerHTML = `
+                    <div class="detail-item">
+                        <strong>Локация:</strong>
+                        <a href="${property.locationLink}" target="_blank" rel="noopener noreferrer" style="color: var(--gold); text-decoration: none;">
+                            <i class="fas fa-map-marker-alt"></i> Посмотреть на карте
+                        </a>
+                    </div>
+                `;
+            } else {
+                locationEl.innerHTML = '';
+            }
+            
+            const videoEl = document.getElementById('detailVideo');
+            if (property.video) {
+                if (property.video.startsWith('data:')) {
+                    videoEl.innerHTML = `
+                        <h3 style="color: var(--dark); margin-bottom: 1rem;">Видео объекта</h3>
+                        <div class="video-container">
+                            <video controls style="width: 100%; height: 100%; border-radius: 10px;">
+                                <source src="${property.video}" type="video/mp4">
+                                Ваш браузер не поддерживает видео.
+                            </video>
+                        </div>
+                    `;
+                } else {
+                    videoEl.innerHTML = `
+                        <h3 style="color: var(--dark); margin-bottom: 1rem;">Видео объекта</h3>
+                        <div class="video-container">
+                            <iframe src="${getEmbedVideoUrl(property.video)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    `;
+                }
+            } else {
+                videoEl.innerHTML = '';
+            }
+            
+            carousel.innerHTML = '';
+            const images = property.images || [];
+            if (images.length > 0) {
+                images.forEach((img, index) => {
+                    const slide = document.createElement('div');
+                    slide.className = `detail-carousel-slide ${index === 0 ? 'active' : ''}`;
+                    slide.style.backgroundImage = `url('${img}')`;
+                    slide.onclick = function() {
+                        openFullscreenImage(img);
+                    };
+                    slide.style.cursor = 'pointer';
+                    carousel.appendChild(slide);
+                });
+                
+                if (images.length > 1) {
+                    const prevBtn = document.createElement('button');
+                    prevBtn.className = 'detail-carousel-btn prev';
+                    prevBtn.innerHTML = '‹';
+                    prevBtn.onclick = prevDetailSlide;
+                    carousel.appendChild(prevBtn);
+                    
+                    const nextBtn = document.createElement('button');
+                    nextBtn.className = 'detail-carousel-btn next';
+                    nextBtn.innerHTML = '›';
+                    nextBtn.onclick = nextDetailSlide;
+                    carousel.appendChild(nextBtn);
+                    
+                    const dots = document.createElement('div');
+                    dots.className = 'detail-carousel-dots';
+                    images.forEach((_, index) => {
+                        const dot = document.createElement('span');
+                        dot.className = `detail-carousel-dot ${index === 0 ? 'active' : ''}`;
+                        dot.onclick = () => goToDetailSlide(index);
+                        dots.appendChild(dot);
+                    });
+                    carousel.appendChild(dots);
+                }
+            } else {
+                const slide = document.createElement('div');
+                slide.className = 'detail-carousel-slide active no-image';
+                slide.innerHTML = '<i class="fas fa-home" style="font-size: 3rem;"></i><div>Нет изображения</div>';
+                carousel.appendChild(slide);
+            }
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            window.currentDetailPropertyId = propertyId;
+            window.detailCarouselIndex = 0;
+        }
+
+        function closeDetailModal() {
+            const modal = document.getElementById('propertyDetailModal');
+            if (modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        function editCurrentProperty() {
+            closeDetailModal();
+            openEditModal('property', window.currentDetailPropertyId);
+        }
+
+        function deleteCurrentProperty() {
+            if (confirm('Вы уверены, что хотите удалить этот объект?')) {
+                currentData.properties = currentData.properties.filter(p => p.id !== window.currentDetailPropertyId);
+                updateDeveloperProjectsCount();
+                saveData();
+                renderProperties();
+                renderDevelopers();
+                closeDetailModal();
+                alert('Объект успешно удален!');
+            }
+        }
+
+        // Навигация по карусели в детальном просмотре
+        let detailCarouselIndex = 0;
+        
+        function prevDetailSlide() {
+            const slides = document.querySelectorAll('.detail-carousel-slide');
+            const dots = document.querySelectorAll('.detail-carousel-dot');
+            if (slides.length === 0) return;
+            
+            slides[detailCarouselIndex].classList.remove('active');
+            if (dots[detailCarouselIndex]) dots[detailCarouselIndex].classList.remove('active');
+            
+            detailCarouselIndex = (detailCarouselIndex - 1 + slides.length) % slides.length;
+            
+            slides[detailCarouselIndex].classList.add('active');
+            if (dots[detailCarouselIndex]) dots[detailCarouselIndex].classList.add('active');
+        }
+        
+        function nextDetailSlide() {
+            const slides = document.querySelectorAll('.detail-carousel-slide');
+            const dots = document.querySelectorAll('.detail-carousel-dot');
+            if (slides.length === 0) return;
+            
+            slides[detailCarouselIndex].classList.remove('active');
+            if (dots[detailCarouselIndex]) dots[detailCarouselIndex].classList.remove('active');
+            
+            detailCarouselIndex = (detailCarouselIndex + 1) % slides.length;
+            
+            slides[detailCarouselIndex].classList.add('active');
+            if (dots[detailCarouselIndex]) dots[detailCarouselIndex].classList.add('active');
+        }
+        
+        function goToDetailSlide(index) {
+            const slides = document.querySelectorAll('.detail-carousel-slide');
+            const dots = document.querySelectorAll('.detail-carousel-dot');
+            if (slides.length === 0) return;
+            
+            slides[detailCarouselIndex].classList.remove('active');
+            if (dots[detailCarouselIndex]) dots[detailCarouselIndex].classList.remove('active');
+            
+            detailCarouselIndex = index;
+            
+            slides[detailCarouselIndex].classList.add('active');
+            if (dots[detailCarouselIndex]) dots[detailCarouselIndex].classList.add('active');
+        }
+
+        // Применение фильтров
+        function applyFilters() {
+            const developerFilter = document.getElementById('developerFilter').value;
+            const priceFilter = document.getElementById('priceFilter').value;
+            const areaFilter = document.getElementById('areaFilter').value;
+            
+            const properties = document.querySelectorAll('.property-card');
+            
+            properties.forEach(card => {
+                const priceText = card.querySelector('.property-price')?.textContent || '0';
+                const price = parseInt(priceText.replace(/[^0-9]/g, '')) || 0;
+                const areaText = card.querySelector('.property-details strong')?.textContent || '0';
+                const area = parseInt(areaText.replace(/[^0-9]/g, '')) || 0;
+                
+                let show = true;
+                
+                if (developerFilter !== 'all') {
+                    const developerName = card.querySelector('.property-developer').textContent;
+                    const developer = currentData.developers.find(d => d.id === parseInt(developerFilter));
+                    if (!developer || developerName !== developer.name) {
+                        show = false;
+                    }
+                }
+                
+                if (priceFilter && price > parseInt(priceFilter)) {
+                    show = false;
+                }
+                
+                if (areaFilter && area < parseInt(areaFilter)) {
+                    show = false;
+                }
+                
+                card.style.display = show ? 'block' : 'none';
+            });
+        }
+
+        function filterByDeveloper(developerId) {
+            document.getElementById('developerFilter').value = developerId;
+            applyFilters();
+            document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Документ загружен, инициализация...');
+            
+            // Загрузка данных
+            loadData();
+            
+            // Мобильное меню
+            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+                const nav = document.getElementById('mainNav');
+                nav.classList.toggle('active');
+            });
+            
+            // Плавная навигация по якорям
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        document.getElementById('mainNav').classList.remove('active');
+                        document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
+                        this.classList.add('active');
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Закрытие модальных окон по клику вне их
+            window.addEventListener('click', function(e) {
+                if (e.target.classList.contains('edit-modal')) {
+                    closeEditModal();
+                }
+                if (e.target.classList.contains('detail-modal')) {
+                    closeDetailModal();
+                }
+                if (e.target.id === 'attractionDetailModal') {
+                    closeAttractionDetailModal();
+                }
+                if (e.target.id === 'imageFullscreen') {
+                    closeFullscreen();
+                }
+            });
+            
+            // Закрытие по Esc
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeEditModal();
+                    closeDetailModal();
+                    closeAttractionDetailModal();
+                    closeFullscreen();
+                }
+            });
+            
+            console.log('Инициализация завершена');
+        });
+    </script>
+</body>
+</html>
